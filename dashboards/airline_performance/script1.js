@@ -159,7 +159,7 @@ function drawChart()
 			// {
 			//     return 50;
 			// })
-			//.round(dc.round.floor)
+			.round(dc.round.floor)		//to round range in div chart-bar1
 			.alwaysUseRounding(true)
 			// .round(function(n)
 			// {
@@ -234,10 +234,12 @@ function drawChart()
 				return 15;
 			})
 			.alwaysUseRounding(true)
-			.round(function(n)
-			{
-				return Math.floor(n) + 0.5;
-			})
+			// .round(function(n)
+			// {
+			// 	//return Math.floor(n) + 0.5;
+			// 	return Math.floor(n);
+			// })
+			.round(dc.round.floor)			//to round range in div
 			.valueAccessor(function(p)
 			{
 				return p.value.count;
@@ -300,10 +302,11 @@ function drawChart()
 				return 15;
 			})
 			.alwaysUseRounding(true)
-			.round(function(n)
-			{
-				return Math.floor(n) + 0.5;
-			})
+			// .round(function(n)
+			// {
+			// 	return Math.floor(n) + 0.5;
+			// })
+			.round(dc.round.floor)			//to round range in div
 			.valueAccessor(function(p)
 			{
 				return p.value.count;
@@ -358,6 +361,7 @@ function drawChart()
 			// {
 			// 	return Math.floor(n) + 0.5;
 			// })
+			.round(dc.round.floor)			//to round range in div
 			.valueAccessor(function(p)
 			{
 				return p.value.count;
@@ -418,6 +422,7 @@ function drawChart()
 			// {
 			// 	return Math.floor(n) + 0.5;
 			// })
+			.round(dc.round.floor)			//to round range in div
 			.valueAccessor(function(p)
 			{
 				return p.value.count;
