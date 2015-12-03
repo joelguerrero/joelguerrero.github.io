@@ -214,6 +214,7 @@
     <hr style="margin-bottom:6px">
         <div id="chart-bar1" class="dc-chart chart_bg col-md-8" align="left" >
             <strong data-toggle="tooltip" data-placement="top" title="Click on the graph and select a range to filter">Total number of flights per day of the month</strong>  
+            <span class="reset" style="display: none;">  | Range: <span class="filter"></span></span>
             <a class="btn btn-primary btn-sm" style="margin-left: 20px;" href="javascript:barChart1.filterAll();dc.redrawAll();" >Reset chart</a> 
             <!-- <h6 class="text-muted">Departure delta refers to the difference in minutes between scheduled and actual departure time. Early departures show negative numbers.</h6> -->
             <div class="clearfix"></div>
@@ -232,12 +233,14 @@
     <hr style="margin-bottom:6px">
         <div id="chart-bar2" class="dc-chart chart_bg col-md-6" align="left" >
             <strong data-toggle="tooltip" data-placement="top" title="Click on the graph and select a range to filter">Departure delay (minutes)</strong>  
+            <span class="reset" style="display: none;">  | Range: <span class="filter"></span></span>
             <a class="btn btn-primary btn-sm" style="margin-left: 20px;" href="javascript:barChart2.filterAll();dc.redrawAll();" >Reset chart</a> 
             <div class="clearfix"></div>
         </div>
 
         <div id="chart-bar3" class="dc-chart chart_bg col-md-6" align="left" >
             <strong data-toggle="tooltip" data-placement="top" title="Click on the graph and select a range to filter">Arrival delay (minutes)</strong>  
+            <span class="reset" style="display: none;">  | Range: <span class="filter"></span></span>
             <a class="btn btn-primary btn-sm" style="margin-left: 20px;" href="javascript:barChart3.filterAll();dc.redrawAll();" >Reset chart</a> 
             <div class="clearfix"></div>
         </div>
@@ -261,6 +264,7 @@
     <hr style="margin-bottom:6px">
         <div id="chart-bar4" class="dc-chart chart_bg col-md-6" align="left" >
             <strong data-toggle="tooltip" data-placement="top" title="Click on the graph and select a range to filter">Departure time (hours)</strong>  
+            <span class="reset" style="display: none;">  | Range: <span class="filter"></span></span>
             <a class="btn btn-primary btn-sm" style="margin-left: 20px;" href="javascript:barChart4.filterAll();dc.redrawAll();" >Reset chart</a> 
             <!-- <h6 class="text-muted">Departure time refers to the actual departure hour.</h6> -->
             <div class="clearfix"></div>
@@ -268,6 +272,7 @@
 
         <div id="chart-bar5" class="dc-chart chart_bg col-md-6" align="left" >
             <strong data-toggle="tooltip" data-placement="top" title="Click on the graph and select a range to filter">Distance between airports (miles)</strong>  
+            <span class="reset" style="display: none;">  | Range: <span class="filter"></span></span>
             <a class="btn btn-primary btn-sm" style="margin-left: 20px;" href="javascript:barChart5.filterAll();dc.redrawAll();" >Reset chart</a> 
             <!-- <h6 class="text-muted">Departure time refers to the actual departure hour.</h6> -->
             <div class="clearfix"></div>

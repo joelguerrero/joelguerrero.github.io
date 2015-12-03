@@ -182,7 +182,7 @@
     <div class="row" style="margin-top:-10px">
     <!-- <hr> -->
     <hr style="margin-bottom:6px">
-        <div id="yearly-bubble-chart" class="dc-chart chart_bg" align="left" >
+        <div id="yearly-bubble-chart" class="dc-chart chart_bg col-md-10" align="left" >
             <strong>Yearly Performance</strong> (Bubble radius: fluctuation/index ratio, Bubble color: gain (green)/loss (red))    
             <!-- <a class="reset" href="javascript:yearlyBubbleChart.filterAll();dc.redrawAll();" style="display: none;">reset</a> -->
             <a class="btn btn-primary btn-sm" style="margin-left: 20px;" href="javascript:yearlyBubbleChart.filterAll();dc.redrawAll();" >Reset chart</a>
@@ -192,7 +192,7 @@
 
 	    
 	<div class="row" style="margin-top:10px">
-        <div id="year-chart" class="dc-chart chart_bg" align="left" >
+        <div id="year-chart" class="dc-chart chart_bg col-md-10" align="left" >
             <strong>Select year</strong> 
             <a class="btn btn-primary btn-sm" style="margin-left: 20px;" href="javascript:yearChart.filterAll();dc.redrawAll();" >Reset selection</a>
             <div class="clearfix"></div>
@@ -202,14 +202,14 @@
 
     <div class="row" style="margin-top:20px">
     <hr style="margin-bottom:6px">
-        <div class="col-sm-4 chart_bg" id="gain-loss-chart" align="center">
+        <div class="col-md-4 chart_bg" id="gain-loss-chart" align="center">
             <strong class="text-center">Days by Gain/Loss</strong>
             <!-- <a class="reset" href="javascript:gainOrLossChart.filterAll();dc.redrawAll();" style="display: none;">reset</a> -->
             <a class="btn btn-primary btn-sm" style="margin-left: 20px;" href="javascript:gainOrLossChart.filterAll();dc.redrawAll();" >Reset chart</a>
             <div class="clearfix"></div>
         </div>
 
-        <div class="col-sm-4 chart_bg" id="quarter-chart"  align="center">
+        <div class="col-md-4 chart_bg" id="quarter-chart"  align="center">
         <!-- <div class="col-sm-4" id="quarter-chart" style="background-color:lavender;" align="center"> -->
             <strong>Quarters</strong>
             <!-- <a class="reset" href="javascript:quarterChart.filterAll();dc.redrawAll();" style="display: none;">reset</a> -->
@@ -220,14 +220,14 @@
 
 
     <div class="row" style="margin-top:10px" align="center">
-        <div class="col-sm-4 chart_bg" id="day-of-week-chart" >
+        <div class="col-md-4 chart_bg" id="day-of-week-chart" >
             <strong>Day of Week</strong>
             <!-- <a class="reset" href="javascript:dayOfWeekChart.filterAll();dc.redrawAll();" style="display: none;">reset</a> -->
             <a class="btn btn-primary btn-sm" style="margin-left: 20px;" href="javascript:dayOfWeekChart.filterAll();dc.redrawAll();" >Reset chart</a>
             <div class="clearfix"></div>
         </div> 
 
-        <div class="col-sm-6 chart_bg" id="fluctuation-chart" align="center">
+        <div class="col-md-6 chart_bg" id="fluctuation-chart" align="center">
         <!-- <div class="col-sm-6" id="fluctuation-chart" style="background-color:lavender;" align="center"> -->
             <strong>Days by Fluctuation(%)</strong>
             <span class="reset" style="display: none;">range: <span class="filter"></span></span>
@@ -240,7 +240,7 @@
 
     <div class="row" style="margin-top:20px">
     <hr style="margin-bottom:6px">
-        <div id="monthly-move-chart" class="chart_bg">
+        <div id="monthly-move-chart" class="chart_bg col-md-10">
             <!-- <strong>Monthly Index Abs Move & Volume/500,000 Chart</strong> -->
             <strong>Monthly Index Abs Move & Volume</strong>
             <span class="reset" style="display: none;">  | Range: <span class="filter"></span></span>
@@ -252,13 +252,13 @@
 
 
     <div class="row">
-        <div id="monthly-volume-chart" class="chart_bg">
+        <div id="monthly-volume-chart" class="chart_bg col-md-10">
         </div>
         <div class="clearfix"></div>
     </div>
 
 
-    <div class="row" style="margin-bottom:20px">
+    <div class="row col-md-10" style="margin-bottom:20px">
         <!-- <p class="muted pull-left bg-info" style="margin-left: 15px;">Select a time range to zoom in</p> -->
         <p align="center">Select a time range to zoom in 
         <a class="btn btn-primary btn-sm" style="margin-left: 20px;" href="javascript:volumeChart.filterAll();dc.redrawAll();" >Reset chart</a> </p>
