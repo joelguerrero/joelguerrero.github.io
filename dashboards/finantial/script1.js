@@ -32,7 +32,7 @@ var nasdaqTable = dc.dataTable('.dc-data-table');
 //*************************************************************************************************************************
 function drawChart()
 {
-    var inputfile = "table.csv"
+    var inputfile = "data/table.csv"
     //var inputfile = "tablelarge.csv"
 
     //d3.csv("ndx.csv", function (data) {

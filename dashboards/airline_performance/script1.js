@@ -34,10 +34,9 @@ var flightTable = dc.dataTable('.dc-data-table');
 //*************************************************************************************************************************
 function drawChart()
 {
-	//var inputfile = "test.csv";
-	var inputfile = "test_small.csv";
-	//var inputfile = "test_small1.csv";
-	//var inputfile = "test_small2.csv";
+	//var inputfile = "data/test.csv";
+	var inputfile = "data/test_small.csv";
+
 
 
 	//d3.csv("ndx.csv", function (data) {
