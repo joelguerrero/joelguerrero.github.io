@@ -24,6 +24,8 @@ var barChart5 = dc.barChart("#chart-bar5");
 
 var rowChart1 = dc.rowChart("#chart-row1");
 
+var pieChart1 = dc.pieChart("#chart-pie1");
+
 var tableCount = dc.dataCount('.dc-data-count');
 var tableCount1 = dc.dataCount('.dc-data-count1');
 var flightTable = dc.dataTable('.dc-data-table');
@@ -34,8 +36,8 @@ var flightTable = dc.dataTable('.dc-data-table');
 //*************************************************************************************************************************
 function drawChart()
 {
-	//var inputfile = "data/test.csv";
-	var inputfile = "data/test_small.csv";
+	var inputfile = "data/test.csv";
+	//var inputfile = "data/test_small.csv";
 
 
 
@@ -150,7 +152,7 @@ function drawChart()
 			.transitionDuration(transition_time)
 			//.elasticX(true)
 			.elasticY(true)
-			.centerBar(true)
+			//.centerBar(true)
 			.x(d3.scale.linear().domain([0, 32]))
 			//.barPadding(0.2)
 			//.gap(2)
@@ -351,7 +353,7 @@ function drawChart()
 			.transitionDuration(transition_time)
 			//.elasticX(true)
 			.elasticY(true)
-			.centerBar(true)
+			//.centerBar(true)
 			//.barPadding(0.2)
 			.x(d3.scale.linear().domain([-1, 25]))
 			//.x(d3.scale.linear().domain([0, 24]).rangeRound([0, 10 * 24]))
@@ -515,6 +517,58 @@ function drawChart()
 		// 		.style("fill", "black");
 		// });
 		//*************************************************************************************************************************
+
+
+
+		//*******************************************************************************************
+		//arrivals per airport
+
+		var destDimension = ndx.dimension(function(d)
+		{
+			return d.DEST;
+		});
+
+		// var destGroup = destDimension.group().reduceCount(function(d)
+		// {
+		// 	return d.DEST;
+		// });
+
+		var destGroup = destDimension.group();
+
+		pieChart1
+			.width(600)
+			.height(400)
+			.transitionDuration(transition_time)
+			.dimension(destDimension)
+			.group(destGroup)
+			.innerRadius(80)
+			.radius(180)
+			.slicesCap(16)
+			.minAngleForLabel(.01)
+			.externalLabels(40)
+			.externalRadiusPadding(50)
+			.drawPaths(true)
+			// .label(function(d)
+			// {
+			// 	if (pieChart1.hasFilter() && !pieChart1.hasFilter(d.key))
+			// 	{
+			// 		return '0%';
+			// 	}
+			// 	return numberFormat(d.value / all.value() * 100) + '%';
+			// })
+            .ordering(function(p)
+            {
+                //return p.value.TotalCount;
+                return p.value.DEST;
+            })
+			.renderLabel(true)
+			//.ordinalColors(colorbrewer.Dark2[8])
+			//.ordinalColors(colorbrewer.Paired[12])
+			.colors(d3.scale.category20())
+			.legend(dc.legend().x(0).y(10).itemHeight(16).gap(5));
+		//*******************************************************************************************
+
+
 
 
 

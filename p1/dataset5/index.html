@@ -174,7 +174,8 @@
                         <li><a href="#chart-bar1">Total number of flights per day of the month</a></li>
                         <li><a href="#chart-bar2">Departure delay & Arrival delay</a></li>
                         <li><a href="#chart-bar5">Departure time & Distance between airports</a></li>
-                        <li><a href="#flight-table">List of all flights filtered</a></li>
+                        <li><a href="#chart-pie1">Number of arrivals per airport</a></li>
+                        <li><a href="#flight-table">List of all flights filtered</a></li>    
                     </ul>
                 </li> 
             </ul>
@@ -290,6 +291,19 @@
             <div class="clearfix"></div>
         </div>
     </div>
+
+
+
+    <div class="row" style="margin-top:0px">
+    <hr style="margin-bottom:6px">
+        <div id="chart-pie1" class="dc-chart chart_bg col-md-8" align="center" style="margin-left:0px">
+            <strong data-toggle="tooltip" data-placement="top" title="Click on the donut chart or the legend to filter data">Number of arrivals per airport</strong>  
+            <a class="btn btn-primary btn-sm" style="margin-left: 20px;" href="javascript:pieChart1.filterAll();dc.redrawAll();" >Reset chart</a>
+            <div class="clearfix"></div>
+        </div>
+    </div> 
+
+
 
 
 
