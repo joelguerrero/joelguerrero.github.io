@@ -130,27 +130,6 @@ function scatterChart(dataset, myOptions)
 
 
 	//=========================================================================================================================
-	//EXPERIMENTAL
-
-	//These options are giving problems with the gridlines
-	//maybe useful for clippling
-	//Start and end of clipping
-	// var xc_begin  = 0;
-	// var xc_Offset = 0;     //usually same as xOffSet if you want to clip to the end of the axis
-	// //var xc_end    = 0;
-	// var xc_end    = xc_Offset + xc_begin;
-	// var yc_begin  = 0;
-	// var yc_Offset = 0;     //usually same as yOffSet if you want to clip to the ens of the axis
-	// //var yc_end    = yc_Offset + yc_begin;
-	// var yc_end    = 0;
-	//Start and end of clipping
-
-	//EXPERIMENTAL
-	//=========================================================================================================================
-
-
-
-	//=========================================================================================================================
 	//Legend position
 	var legend_x = typeof(myOptions.legend_x) !== "undefined" ? myOptions.legend_x : 100;
 	var legend_y = typeof(myOptions.legend_y) !== "undefined" ? myOptions.legend_y : 50;
@@ -237,6 +216,14 @@ function scatterChart(dataset, myOptions)
 	// var ax_f = ".d"  ".f"  ".2f"
 	var ax_f = typeof(myOptions.ax_f) !== "undefined" ? myOptions.ax_f : ".r";
 	var ay_f = typeof(myOptions.ay_f) !== "undefined" ? myOptions.ay_f : ".r";
+
+
+	//plot inner frame
+	var log_scale = typeof(myOptions.log_scale) !== "undefined" ? myOptions.log_scale : "no";
+	var xlog1 = typeof(myOptions.xlog1) !== "undefined" ? myOptions.xlog1 : 0.001;
+	var xlog2 = typeof(myOptions.xlog2) !== "undefined" ? myOptions.xlog2 : 10000;
+	var ylog1 = typeof(myOptions.ylog1) !== "undefined" ? myOptions.ylog1 : 0.001;
+	var ylog2 = typeof(myOptions.ylog2) !== "undefined" ? myOptions.ylog2 : 10000;
 	//=========================================================================================================================
 
 
@@ -250,7 +237,18 @@ function scatterChart(dataset, myOptions)
 
 	var show_legend = typeof(myOptions.show_legend) !== 'undefined' ? myOptions.show_legend : "yes";
 
-	var enable_color_encoder = typeof(myOptions.enable_color_encoder) !== 'undefined' ? myOptions.enable_color_encoder : "yes";
+	//number of levels in the legend colromap
+	var colormap_levels = typeof(myOptions.colormap_levels) !== 'undefined' ? myOptions.colormap_levels : 5;
+
+	//color range should be a list of two colors
+	var color_range = typeof(myOptions.color_range) !== 'undefined' ? myOptions.color_range : ["white", "steelblue"];
+
+	var linear_color_scale = typeof(myOptions.linear_color_scale) !== 'undefined' ? myOptions.linear_color_scale : "yes";
+	var use_colorbrewer_linear = typeof(myOptions.use_colorbrewer_linear) !== 'undefined' ? myOptions.use_colorbrewer_linear : "yes";
+	var use_colorbrewer_ordinal = typeof(myOptions.use_colorbrewer_ordinal) !== 'undefined' ? myOptions.use_colorbrewer_ordinal : "no";
+
+
+	var enable_color_encoder = typeof(myOptions.enable_color_encoder) !== 'undefined' ? myOptions.enable_color_encoder : "no";
 
 	if (enable_color_encoder == "no")
 	{
@@ -282,8 +280,12 @@ function scatterChart(dataset, myOptions)
 		//chart_border = "yes";
 		//chart_border_width = 0;
 
+		enable_color_encoder = "no";
+		show_legend =  "no";
+		xOffset = 20;
+
 		circle_color = "white";
-		circle_r = 2;
+		//circle_r = 4;
 
 		plot_frame = "yes";
 
@@ -380,42 +382,79 @@ function scatterChart(dataset, myOptions)
 	//=========================================================================================================
 	//create scaling functions and adjust range at the same time
 
-	if (xaxis_auto_scale == "yes")
+	if (log_scale == "yes")
 	{
-		//var xScale = d3.scale.linear()
-		var xScale = d3.scale.log()
-			//.domain([d3.min(dataset, xValue), d3.max(dataset, xValue)])
-			.domain([100, 0.0005])
-			//force the range to the given values
-			.range([shift_ay, width - xOffset])
-			.nice();
-	}
-	else
-	{
-		var xScale = d3.scale.linear()
-			.domain([xMin, xMax])
-			//force the range to the given values
-			.range([shift_ay, width - xOffset])
-			.nice();
-	};
+		if (xaxis_auto_scale == "yes")
+		{
+			var xScale = d3.scale.log()
+				//.domain([d3.min(dataset, xValue), d3.max(dataset, xValue)])
+				.domain([xlog1, xlog2])
+				//force the range to the given values
+				.range([shift_ay, width - xOffset])
+				.nice();
+		}
+		else
+		{
+			var xScale = d3.scale.log()
+				.domain([xMin, xMax])
+				//force the range to the given values
+				.range([shift_ay, width - xOffset])
+				.nice();
+		};
 
-	if (yaxis_auto_scale == "yes")
-	{
-		//var yScale = d3.scale.linear()
-		var yScale = d3.scale.log()
-			//.domain([d3.min(dataset, yValue), d3.max(dataset, yValue)])
-			.domain([2000, 0.0005])
-			//force the range to the given values
-			.range([height - shift_ax, yOffset])
-			.nice();
+		if (yaxis_auto_scale == "yes")
+		{
+			var yScale = d3.scale.log()
+				//.domain([d3.min(dataset, yValue), d3.max(dataset, yValue)])
+				.domain([ylog1, ylog2])
+				//force the range to the given values
+				.range([height - shift_ax, yOffset])
+				.nice();
+		}
+		else
+		{
+			var yScale = d3.scale.log()
+				.domain([yMin, yMax])
+				//force the range to the given values
+				.range([height - shift_ax, yOffset])
+				.nice();
+		};
 	}
 	else
 	{
-		var yScale = d3.scale.linear()
-			.domain([yMin, yMax])
-			//force the range to the given values
-			.range([height - shift_ax, yOffset])
-			.nice();
+		if (xaxis_auto_scale == "yes")
+		{
+			var xScale = d3.scale.linear()
+				.domain([d3.min(dataset, xValue), d3.max(dataset, xValue)])
+				//force the range to the given values
+				.range([shift_ay, width - xOffset])
+				.nice();
+		}
+		else
+		{
+			var xScale = d3.scale.linear()
+				.domain([xMin, xMax])
+				//force the range to the given values
+				.range([shift_ay, width - xOffset])
+				.nice();
+		};
+
+		if (yaxis_auto_scale == "yes")
+		{
+			var yScale = d3.scale.linear()
+				.domain([d3.min(dataset, yValue), d3.max(dataset, yValue)])
+				//force the range to the given values
+				.range([height - shift_ax, yOffset])
+				.nice();
+		}
+		else
+		{
+			var yScale = d3.scale.linear()
+				.domain([yMin, yMax])
+				//force the range to the given values
+				.range([height - shift_ax, yOffset])
+				.nice();
+		};
 	};
 
 	//=========================================================================================================
@@ -425,25 +464,42 @@ function scatterChart(dataset, myOptions)
 	//=========================================================================================================
 	//Create axes.  We need to draw them on the svg, this is done at the end
 
-	var xAxis = d3.svg.axis()
-		.scale(xScale)
-		.orient("bottom")
-		.ticks(x_ticks)
-		//.tickFormat(d3.format(ax_f));
-		.tickFormat(function(d)
-		{
-			return xScale.tickFormat(4, d3.format(ax_f))(d)
-		});
+	if (log_scale == "yes")
+	{
+		var xAxis = d3.svg.axis()
+			.scale(xScale)
+			.orient("bottom")
+			.ticks(x_ticks)
+			.tickFormat(function(d)
+			{
+				return xScale.tickFormat(4, d3.format(ax_f))(d)
+			});
 
-	var yAxis = d3.svg.axis()
-		.scale(yScale)
-		.orient("left")
-		.ticks(y_ticks)
-		//.tickFormat(d3.format(ay_f));
-		.tickFormat(function(d)
-		{
-			return yScale.tickFormat(4, d3.format(ay_f))(d)
-		})
+		var yAxis = d3.svg.axis()
+			.scale(yScale)
+			.orient("left")
+			.ticks(y_ticks)
+			.tickFormat(function(d)
+			{
+				return yScale.tickFormat(4, d3.format(ay_f))(d)
+			})
+	}
+	else
+	{
+		var xAxis = d3.svg.axis()
+			.scale(xScale)
+			.orient("bottom")
+			.ticks(x_ticks)
+			.tickFormat(d3.format(ax_f));
+
+		var yAxis = d3.svg.axis()
+			.scale(yScale)
+			.orient("left")
+			.ticks(y_ticks)
+			.tickFormat(d3.format(ay_f));
+	};
+
+
 
 	if (plot_frame == "yes")
 	{
@@ -458,22 +514,74 @@ function scatterChart(dataset, myOptions)
 	//=========================================================================================================
 	// setup fill color
 	//var cValue = function(d) { return d.species;}
+	// var cValue = function(d)
+	// {
+	// 	return d[keys[column_c]];
+	// };
+
+	// //var color = d3.scale.category10();
+	// //var color = d3.scale.category20();
+
+	// //Colorbrewer scales
+	// var color = d3.scale.ordinal()
+	// 	.range(colorbrewer.Dark2[8])
+
+
+
 	var cValue = function(d)
 	{
 		return d[keys[column_c]];
 	};
 
-	//var color = d3.scale.category10();
-	//var color = d3.scale.category20();
+	var cMinval = d3.min(dataset, cValue);
+	var cMaxval = d3.max(dataset, cValue);
 
-	//Colorbrewer scales
-	var color = d3.scale.ordinal()
-		//.domain(["foo", "bar", "baz"])        //to define domain in range
-		//.range(colorbrewer.RdBu[6])			//color blind safe print safe
-		//.range(colorbrewer.OrRd[8])
-		//.range(colorbrewer.PuOr[6])           //ordinal colors minimum 3 cats
-		//.range(colorbrewer.RdYlBu[3])         //ordinal colors minimum 3 cats
-		.range(colorbrewer.Dark2[8])
+	//console.log(cMinval,cMaxval)
+
+
+	if (linear_color_scale == "yes")
+	{
+		if (use_colorbrewer_linear == "yes")
+		{
+			//Colorbrewer linear scales
+			var color = d3.scale.linear()
+				.domain([cMinval, cMaxval])
+				//.range(colorbrewer.RdBu[6]); 			//color blind safe print safe
+				//.range(colorbrewer.RdYlBu[9]); 		//color blind safe print safe
+				.range(colorbrewer.Dark2[5]);
+			//.range(colorbrewer.Accent[6]);
+		}
+		else
+		{
+			//linear d3 palette
+			var color = d3.scale.linear()
+				.domain([cMinval, cMaxval])
+				.range(color_range)
+				.interpolate(d3.interpolateRgb);
+		}
+	}
+	else
+	{
+		if (use_colorbrewer_ordinal == "yes")
+		{
+			//Colorbrewer ordinal scales
+			var color = d3.scale.ordinal()
+				//.domain(["foo", "bar", "baz"]) 		//to define domain in range
+				.range(colorbrewer.RdBu[6]) 			//color blind safe print safe
+				// .range(colorbrewer.OrRd[8])
+				// .range(colorbrewer.PuOr[6]) 			//ordinal colors minimum 3 cats
+				// .range(colorbrewer.RdYlBu[3]) 		//ordinal colors minimum 3 cats
+				// .range(colorbrewer.Dark2[8])
+		}
+		else
+		{
+			//ordinal d3 palette
+			var color = d3.scale.category10();
+			//var color = d3.scale.category20();
+		}
+
+	};
+
 
 	//=========================================================================================================
 
@@ -493,11 +601,11 @@ function scatterChart(dataset, myOptions)
 		{
 			//return "Bacteria: " + d.bacteria + "<br/>" + "This"; 
 			//return "<span style='color:white;font-size:10px'>Position:</span> <span style='color:red;font-size:10px'>" + "(" + xValue(d) + ", " + yValue(d) + ")" + "</span>";
-			return 	"<span style='color:white;font-size:12px'>" + "MIC " + xLabel + " = " + xValue(d) + "</span>" + "<br/>"  +
-					"<span style='color:white;font-size:12px'>" + "MIC " + yLabel + " = " + yValue(d) + "</span>" + "<br/>" +
-					"<span style='color:white;font-size:12px'>" + "Gram stain " + " = " + d.gramstain + "</span>" + "<br/>" +
-					"<span style='color:white;font-size:12px'>" + "Genus " + " = " + d.genus + "</span>" + "<br/>" +
-					"<span style='color:white;font-size:12px'>" + "Bacteria " + " = " + d.bacteria + "</span>";
+			return "<span style='color:white;font-size:12px'>" + "MIC " + xLabel + " = " + xValue(d) + "</span>" + "<br/>" +
+				"<span style='color:white;font-size:12px'>" + "MIC " + yLabel + " = " + yValue(d) + "</span>" + "<br/>" +
+				"<span style='color:white;font-size:12px'>" + "Gram stain " + " = " + d.gramstain + "</span>" + "<br/>" +
+				"<span style='color:white;font-size:12px'>" + "Genus " + " = " + d.genus + "</span>" + "<br/>" +
+				"<span style='color:white;font-size:12px'>" + "Bacteria " + " = " + d.bacteria + "</span>";
 
 		});
 
@@ -857,27 +965,6 @@ function scatterChart(dataset, myOptions)
 			.style("opacity", circle_opacity);
 	};
 
-
-	// mySvg.selectAll("text")
-	// 	.data(dataset)
-	// 	.enter()
-	// 	.append("text")
-	// 	.text(function(d)
-	// 	{
-	// 		return d[0] + "," + d[1];
-	// 	})
-	// 	.attr("x", function(d)
-	// 	{
-	// 		return d[0];
-	// 	})
-	// 	.attr("y", function(d)
-	// 	{
-	// 		return d[1];
-	// 	})
-	// 	.attr("font-family", "sans-serif")
-	// 	.attr("font-size", "1100px")
-	// 	.attr("fill", "red");
-
 	//=========================================================================================================
 
 
@@ -934,7 +1021,7 @@ function scatterChart(dataset, myOptions)
 			.labelOffset(5)
 			.shapePadding(2)
 			//.shape('line')
-			//.cells(10) //numbe of cells to plot default cell height is 15px
+			.cells(colormap_levels) //number of cells to plot default cell height is 15px
 			.scale(color);
 
 		mySvg.select(".legendLinear")
@@ -1043,47 +1130,6 @@ function scatterChart(dataset, myOptions)
 		};
 	};
 	//=========================================================================================================================
-
-	//=========================================================================================================================
-	// function zoomed() {
-	//   mySvg.attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
-	// }
-
-
-
-	// d3.selectAll("button[data-zoom]")
-	//     .on("click", clicked);
-
-	// function zoomed() {
-	//   mySvg.select(".x.axis").call(xAxis);
-	//   mySvg.select(".y.axis").call(yAxis);
-	// }
-
-	// function clicked() {
-	//   mySvg.call(zoom.event); // https://github.com/mbostock/d3/issues/2387
-
-	//   // Record the coordinates (in data space) of the center (in screen space).
-	//   var center0 = zoom.center(), translate0 = zoom.translate(), coordinates0 = coordinates(center0);
-	//   zoom.scale(zoom.scale() * Math.pow(2, +this.getAttribute("data-zoom")));
-
-	//   // Translate back to the center.
-	//   var center1 = point(coordinates0);
-	//   zoom.translate([translate0[0] + center0[0] - center1[0], translate0[1] + center0[1] - center1[1]]);
-
-	//   svg.transition().duration(750).call(zoom.event);
-	// }
-
-	// function coordinates(point) {
-	//   var scale = zoom.scale(), translate = zoom.translate();
-	//   return [(point[0] - translate[0]) / scale, (point[1] - translate[1]) / scale];
-	// }
-
-	// function point(coordinates) {
-	//   var scale = zoom.scale(), translate = zoom.translate();
-	//   return [coordinates[0] * scale + translate[0], coordinates[1] * scale + translate[1]];
-	// }
-	//=========================================================================================================================
-
 
 
 }

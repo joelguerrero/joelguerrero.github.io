@@ -107,14 +107,14 @@ myOptions = {
 	// marginright: 40,
 	// chart_background: "white",
 	// chart_border: "no",
-	column_x: 4, //sa 18
-	column_y: 2, //sa 19
-	column_c: 6, //sa 15 other options, 12, 13, 14, 16
+	column_x: 4,           //sa 18
+	column_y: 2,           //sa 19
+	column_c: 6,           //sa 15 other options, 12, 13, 14, 16
 	// column_lt: 1, //usually same as column_c
 	// column_t: 1,
 	// column_s: 1,
 	// circle_opacity: 0.5,
-	circle_r: 8,
+	circle_r: 6,
 	// circle_color: "crimson",
 	// xOffset: 120,
 	// yOffset: 20,
@@ -133,29 +133,39 @@ myOptions = {
 	title_label: 'Effectiveness of neomycin and penicillin against 16 different bacteria',
 	// xaxis_auto_scale: "no",
 	// xMin: 0,
-	// xMax: 200,
+	// xMax: 1,
 	// yaxis_auto_scale: "no",
 	// yMin: 0,
-	// yMax: 200,
+	// yMax: 1,
 	// xa_show_legend: "no",
 	// xa_auto_legend: "no",
 	// xa_legend: "This is a manual legend",
 	// ya_show_legend: "yes",
     // ya_auto_legend: "no",
     // ya_legend: "This is a manual legend",
-	axes_font_size: 8,
-	ax_f: ".d",        //.2f
+	// axes_font_size: 10,
+	ax_f: ".d",        //.2f  .d
 	ay_f: ".d",
-	x_ticks: 5,
-	y_ticks: 5,
-	//enable_tooltip: "no",
-	//enable_lasso: "yes",
-	//enable_color_encoder: "no",
-	//show_legend: "no",
-	// tooltip_f: ".2f",
-	// gridlines_x: "yes",
-	// gridlines_y: "yes",
-	plot_frame: "yes",
+	// x_ticks: 5,
+	// y_ticks: 5,
+    // gridlines_x: "yes",
+    // gridlines_y: "yes",
+    plot_frame: "yes",
+    log_scale: "yes",
+    xlog1: 1000,
+    xlog2: 0.0001,
+    ylog1: 10000,
+    ylog2: 0.0001,
+	// enable_tooltip: "no",
+    // tooltip_f: ".2f",
+	// enable_lasso: "yes",
+	enable_color_encoder: "yes",
+    // colormap_levels: 8,
+    // color_range: ["purple", "white"],           //steelblue, maroon, mediumblue, darkgreen, purple, navy 
+    linear_color_scale: "no",                   //default = yes      yes = linear scale                          no = ordinal     
+    // use_colorbrewer_linear: "no",               //default = yes      yes = use colorbrewer linear scale          no = use d3 color, set colors in color_range        
+    // use_colorbrewer_ordinal: "yes",             //default = no       yes = use colorbrewer ordinal scale         no = use d3 ordinal scale                        
+	// show_legend: "no",
 	// black_and_white: "yes",
 }
 
