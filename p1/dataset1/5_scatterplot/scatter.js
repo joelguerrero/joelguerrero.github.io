@@ -636,7 +636,7 @@ function scatterChart(dataset, myOptions)
 					return "crimson";
 				};
 			})
-			.style("opacity", 1)	//to change selection style
+			.style("opacity", 0)	//to change selection style
 			.attr("r", 7);
 
 		// Reset the style of the not selected dots
